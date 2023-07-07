@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
 import picprof from '../assets/profpic.png'
 import newsFeed from '../assets/newsData.jsx'
 
@@ -55,8 +56,8 @@ function News() {
               <span className="block text-[#807979] flex-none">5th June 2023</span>
             </div>
           </div>
-          <div className="bg-white w-[30%] h-[80%] flex items-center justify-center">
-            <Link to={`/posts/${item.title}`} state={ item } className="shadow-lg bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] px-4 py-2 rounded-full cursor-pointer hover:from-[#000000] hover:to-[#000000] hover:text-white transition-all duration-700 flex-none">Read More</Link>
+        <div className="bg-white w-[30%] h-[80%] flex items-center justify-center">
+          <Link to={`/posts/${item.title}`} state={ item } className="shadow-lg bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] px-4 py-2 rounded-full cursor-pointer hover:from-[#000000] hover:to-[#000000] hover:text-white transition-all duration-700 flex-none">Read More</Link>
           </div>
         </div>
       </div>
