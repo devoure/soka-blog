@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { motion } from "framer-motion"
 import { AiFillInstagram, AiFillTwitterCircle, AiFillFacebook, AiOutlineSearch } from "react-icons/ai";
 
 function NavHeader() {
   const [searchActive, setSearchActive] = useState(false)
-
   function searchFunc(){
     setSearchActive(prev =>{
       return (!prev)
@@ -32,7 +32,12 @@ function NavHeader() {
       </div>
 
       <div className={searchActive ? "h-10 w-[70%] laptop:w-[20%] bg-white rounded-full flex items-center justify-between pl-3 bg-gradient-to-r from-[#5de0e6] to-[#004aad] text-white overflow-hidden transition-all duration:500 delay:500" : "h-8 w-8 bg-white hover:bg-gradient-to-r from-[#5de0e6] to-[#004aad] rounded-full flex items-center justify-center overflow-hidden transition-all duration:500 delay:500"}>
-        < AiOutlineSearch className="text-2xl cursor-pointer" onClick={searchFunc}/>
+        <motion.div animate={{ rotate: searchActive ? [0, 270, 270, 0] : 0,
+          transition: {
+            duration:2
+          }}}>
+          < AiOutlineSearch className="text-2xl cursor-pointer" onClick={searchFunc}/>
+        </motion.div>
         <div className={searchActive ? "flex h-full w-[90%]" : "hidden"}>
           <input type="text"  className="w-full h-full outline-none text-black p-3 border-none font-lato italic font-bold text-lg" placeholder="Search"/>
         </div>

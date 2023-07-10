@@ -1,10 +1,59 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { useInView } from "react-intersection-observer"
+import { motion, useAnimation } from "framer-motion"
 import picprof from '../assets/profpic.png'
 import newsFeed from '../assets/newsData.jsx'
 
 function News() {
+  const boxVariant = {
+    visible : {
+      x : 0,
+      transition: {
+        delay: 0.3,
+        when: "beforeChildren",
+        staggerChildren : 0.3
+      }
+    },
+    hidden : {
+      x : -1000,
+    }
+  }
+
+  const listVariant = {
+    visible : {
+      x:0,
+      opacity : 1,
+    },
+    hidden : {
+      x:-10,
+      opacity : 0
+    }
+  }
+
+  const {ref, inView} = useInView()
+  const control = useAnimation()
+  useEffect(()=>{
+    console.log("InView", inView)
+    if(inView){
+      control.start({
+        y:0,
+        transition:{
+          delay:1,
+          when:"beforeChildren",
+          staggerChildren:0.3,
+          type:"spring",
+          stiffness:200
+        }
+      })
+    }
+    if(!inView){
+      control.start({
+        y : "-100vh"
+      }
+      )
+    }
+  }, [inView])
   const [currentPage, setCurrentPage] = useState(1)
   const postPerPage = 3
   let indexOfLastPost = currentPage * postPerPage
@@ -65,9 +114,10 @@ function News() {
     )
   })
   return (
-    <div className="bg-white w-full flex flex-col items-center justify-evenly min-w-[375px] min-h-[2500px]">
-      { newsFeedCard }
-
+    <div className="bg-white w-full flex flex-col min-w-[375px] min-h-[2300px] overflow-hidden">
+      <motion.div ref={ref} animate={control}>
+        { newsFeedCard }
+      </motion.div>
       <div className="w-full h-[15vh] bg-gradient-to-r from-[#5de0e6] to-[#004aad] flex items-center justify-center">
         <span className="text-lg font-bold text-white mr-2">Page</span>
         <div className="px-4 py-4">
