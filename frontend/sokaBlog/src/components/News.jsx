@@ -8,15 +8,17 @@ import newsFeed from '../assets/newsData.jsx'
 function News() {
   const boxVariant = {
     visible : {
-      x : 0,
+      y : 0,
       transition: {
         delay: 0.3,
-        when: "beforeChildren",
+        type: "spring",
+        stiffness:200,
+        when: "afterChildren",
         staggerChildren : 0.3
       }
     },
     hidden : {
-      x : -1000,
+      y : '-100vh',
     }
   }
 
@@ -36,24 +38,11 @@ function News() {
   useEffect(()=>{
     console.log("InView", inView)
     if(inView){
-      control.start({
-        y:0,
-        transition:{
-          delay:1,
-          when:"beforeChildren",
-          staggerChildren:0.3,
-          type:"spring",
-          stiffness:200
-        }
-      })
-    }
+      control.start("visible")
+     }
     if(!inView){
-      control.start({
-        y : "-100vh"
-      }
-      )
-    }
-  }, [inView])
+      control.start("hidden")}
+  }, [control, inView])
   const [currentPage, setCurrentPage] = useState(1)
   const postPerPage = 3
   let indexOfLastPost = currentPage * postPerPage
@@ -75,7 +64,7 @@ function News() {
   indexOfLastPost = (indexOfLastPost == newsFeed.length) ? newsFeed.length : indexOfLastPost
   const newsFeedCard = newsFeed.slice(indexOfFirstPost, indexOfLastPost).map((item, index)=>{
     return(
-      <div className="w-full h-[90vh] max-w-[840px] min-h-[740px] flex items-center justify-evenly flex-col overflow-hidden hover:bg-[#faf5f5] border-b-4" key={item.id}>
+      <motion.div className="w-full h-[90vh] max-w-[840px] min-h-[740px] flex items-center justify-evenly flex-col overflow-hidden hover:bg-[#faf5f5] border-b-4" key={item.id} variants={ listVariant }>
         <div className="group bg-white w-[90%] h-[40%] overflow-hidden">
           <img  className="min-h-[100%] w-[100%] object-cover object-center group-hover:scale-125 transition-all duration-700" src={ item.image } />
         </div>
@@ -109,13 +98,13 @@ function News() {
           <Link to={`/posts/${item.title}`} state={ item } className="shadow-lg bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] px-4 py-2 rounded-full cursor-pointer hover:from-[#000000] hover:to-[#000000] hover:text-white transition-all duration-700 flex-none">Read More</Link>
           </div>
         </div>
-      </div>
+      </motion.div>
 
     )
   })
   return (
     <div className="bg-white w-full flex flex-col min-w-[375px] min-h-[2300px] overflow-hidden">
-      <motion.div ref={ref} animate={control}>
+      <motion.div ref={ref} animate={control} variants={ boxVariant }>
         { newsFeedCard }
       </motion.div>
       <div className="w-full h-[15vh] bg-gradient-to-r from-[#5de0e6] to-[#004aad] flex items-center justify-center">

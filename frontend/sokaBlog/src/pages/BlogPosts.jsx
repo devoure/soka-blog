@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import profPic from '../assets/profpic.png'
 import { BsFillArrowDownCircleFill } from "react-icons/bs"
 import { BsFillArrowUpCircleFill } from "react-icons/bs"
+import { motion } from "framer-motion"
 
 function BlogPosts() {
   const navigate = useNavigate()
@@ -11,6 +12,7 @@ function BlogPosts() {
   const postDetails = useLocation()
 
   return (
+    <motion.div className="origin-center" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:2 }} >
     <div className="laptop:flex laptop:flex-col laptop:items-center">
       <div className="w-full h-[80vh] min-h-[450px] relative bg-cover bg-center bg-fixed shadow-[0px_-200px_60px_35px_rgba(0,0,0,0.92)_inset]" style={{ backgroundImage: `url(${ postDetails.state.image })` }}>
         <div className="fixed inset-x-0 w-full h-[10vh] min-h-[80px] min-w-[375px] bg-white z-[1000] bg-opacity-30 backdrop-blur-md flex">
@@ -96,6 +98,7 @@ function BlogPosts() {
       <div className="w-full h-[20vh] mt-5 min-w-[375px] min-h-[350px] bg-header-background bg-fixed bg-cover bg-center">
       </div>
     </div>
+    </motion.div>
   )
 }
 
