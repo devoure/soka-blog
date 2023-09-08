@@ -3,8 +3,8 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import PostSerializers
-from .models import Post
+from .serializers import PostSerializers, CommentSerializers
+from .models import Post, Comment
 
 
 # Create your views here.
@@ -19,7 +19,30 @@ def get_posts(request):
 def get_post(request, pk):
     post = Post.objects.get(id=pk)
     serialized_post = PostSerializers(post, many=False)
-    return Response(serialized_post.data)
+    return Response(serialized_post .data)
+
+
+@api_view(['GET'])
+def get_comments(request):
+    comments = Comment.objects.all()
+    serialized_comments = CommentSerializers(comments, many=True)
+    return Response(serialized_comments.data)
+
+
+@api_view(['GET'])
+def get_comment(request, pk):
+    comments = Comment.objects.get(id=pk)
+    serialized_comment = CommentSerializers(comments, many=False)
+    return Response(serialized_comment.data)
+
+
+@api_view(['POST'])
+def add_comment(request):
+    print("Done")
+    new_comment = CommentSerializers(data=request.data)
+    if new_comment.is_valid():
+        new_comment.save()
+    return Response(new_comment.data)
 
 
 # @api_view(['POST'])
