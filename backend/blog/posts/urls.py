@@ -9,7 +9,8 @@ urlpatterns = [
         path('comments/', views.get_comments, name="get-all-comments"),
         path('comments/<str:pk>/', views.get_comment, name="get-comment"),
         path('comments/add', views.add_comment, name="add-comment"),
-        path('posts/tags/<str:tag>/', views.get_tagged_posts, name="get-tagged-posts")
+        path('posts/tags/<str:tag>/', views.get_tagged_posts, name="get-tagged-posts"),
+        path('posts/simillar/<str:pk>/', views.get_simillar_post, name="get-simillar")
 
 
         # path('posts/update/<str:pk>/', views.update_post, name="update-post"),

@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from .serializers import PostSerializers, CommentSerializers
 from .models import Post, Comment
 from taggit.models import Tag
-from django.shortcuts import  get_object_or_404
+from django.shortcuts import get_object_or_404
+from django.db.models import Count
 
 
 # Create your views here.
@@ -48,13 +49,21 @@ def add_comment(request):
 
 @api_view(['GET'])
 def get_tagged_posts(request, tag):
-    print("Yut tag:", tag)
     posts = Post.objects.all()
     tag = get_object_or_404(Tag, slug=tag)
     tagged_posts = posts.filter(tags__in=[tag])
     serialized_res = PostSerializers(tagged_posts, many=True)
     return Response(serialized_res.data)
 
+
+@api_view(['GET'])
+def get_simillar_post(request, pk):
+    post = Post.objects.get(id=pk)
+    post_tags_ids = post.tags.values_list('id', flat=True)
+    similar_posts = Post.objects.all().filter(tags__in=post_tags_ids).exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-published')[:4]
+    result = PostSerializers(similar_posts, many=True)
+    return Response(result.data)
 
 # @api_view(['POST'])
 # def add_post(request): 

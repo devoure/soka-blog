@@ -40,20 +40,46 @@
       
       ![postman add comment](./screenshots/backend_addcomment.png)
      </details>
+  1. API to get posts by tags
+     > A blog API endpoint that gets posts that much a tag passed by the url
+     <details>
+      <summary>Postman screenshot</summary>
+      
+      ![postman get posts by tag](./screenshots/backend_taggedposts.png)
+     </details>
+  1. API to get simillar posts
+     > A blog API endpoint that gets simillar posts from one selected
+     <details>
+      <summary>Postman screenshot</summary>
+      
+      ![postman get simillar](./screenshots/backend_simillar.png)
+     </details>
 
 
 ## 🔧 Code Setup
    1. Clone the repo
-        ```
-            git clone https://github.com/devoure/
+        ```bash
+            git clone https://github.com/devoure/soka-blog
 
         ```
    1. Move into the project file
         ```bash
-            cd mongo-hrms
+            cd soka-blog
 
         ```
 ## 💻🏃‍♂️ Running Code Snippet
+   1. Run Backend code
+        ```bash
+            cd backend/blog/
+            python manage.py runserver
+
+        ```
+   1. Run Frontend Code
+        ```bash
+            ##
+
+        ```
+
 
 
 
