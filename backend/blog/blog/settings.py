@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     # local apps
     'posts.apps.PostsConfig',
     # apps
-    'rest_framework'
+    'rest_framework',
+    'taggit'
 ]
 
 MIDDLEWARE = [

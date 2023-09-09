@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PostSerializers, CommentSerializers
 from .models import Post, Comment
+from taggit.models import Tag
+from django.shortcuts import  get_object_or_404
 
 
 # Create your views here.
@@ -38,11 +40,20 @@ def get_comment(request, pk):
 
 @api_view(['POST'])
 def add_comment(request):
-    print("Done")
     new_comment = CommentSerializers(data=request.data)
     if new_comment.is_valid():
         new_comment.save()
     return Response(new_comment.data)
+
+
+@api_view(['GET'])
+def get_tagged_posts(request, tag):
+    print("Yut tag:", tag)
+    posts = Post.objects.all()
+    tag = get_object_or_404(Tag, slug=tag)
+    tagged_posts = posts.filter(tags__in=[tag])
+    serialized_res = PostSerializers(tagged_posts, many=True)
+    return Response(serialized_res.data)
 
 
 # @api_view(['POST'])
