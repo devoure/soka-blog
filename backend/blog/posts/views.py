@@ -8,7 +8,8 @@ from .models import Post, Comment
 from taggit.models import Tag
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
-
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import TrigramSimilarity
 
 # Create your views here.
 @api_view(['GET'])
@@ -64,6 +65,20 @@ def get_simillar_post(request, pk):
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-published')[:4]
     result = PostSerializers(similar_posts, many=True)
     return Response(result.data)
+
+
+@api_view(['GET'])
+def search_text(requests, query):
+    # search_vector = SearchVector('title', 'body')
+    # search_query = SearchQuery(text)
+    results = Post.objects.all().annotate(similarity=TrigramSimilarity('title', query)).filter(similarity__gt=0.1).order_by('-similarity')
+    response = PostSerializers(results, many=True)
+    return Response(response.data)
+
+                
+
+
+                                          
 
 # @api_view(['POST'])
 # def add_post(request): 
