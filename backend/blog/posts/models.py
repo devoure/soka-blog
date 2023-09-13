@@ -21,7 +21,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=POST_STATUS,
                               default='draft')
     tags = TaggableManager()
-    #img = models.ImageField(upload_to='images/', default=None)
+    img = models.ImageField(upload_to='images/', default=None)
 
     class Meta:
         ordering = ('-published',)
