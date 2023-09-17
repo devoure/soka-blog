@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { useInView } from "react-intersection-observer"
 import { motion, useAnimation } from "framer-motion"
 import picprof from '../assets/profpic.png'
-import newsFeed from '../assets/newsData.jsx'
+// import newsFeed from '../assets/newsData.jsx'
+import { PostsContext } from '../context/BlogsPosts'
 
 function News() {
+  let blogPosts = useContext(PostsContext)
+  console.log(blogPosts)
   const boxVariant = {
     visible : {
       y : 0,
@@ -48,7 +51,7 @@ function News() {
   let indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage
   const pages = []
-  const partitions = Math.ceil(newsFeed.length / postPerPage)
+  const partitions = Math.ceil(blogPosts.length / postPerPage)
   for (let i=1; i <= partitions; i++){
     pages.push(i)
   }
@@ -61,17 +64,17 @@ function News() {
       <span className="p-3 bg-white rounded-full mr-2 cursor-pointer hover:bg-black hover:text-white transition duration-300" key={ item } id={ item } onClick={ changePage }>{item}</span>
     )
   })
-  indexOfLastPost = (indexOfLastPost == newsFeed.length) ? newsFeed.length : indexOfLastPost
-  const newsFeedCard = newsFeed.slice(indexOfFirstPost, indexOfLastPost).map((item, index)=>{
+  indexOfLastPost = (indexOfLastPost == blogPosts.length) ? blogPosts.length : indexOfLastPost
+  const newsFeedCard = blogPosts.slice(indexOfFirstPost, indexOfLastPost).map((item, index)=>{
     return(
       <motion.div className="w-full h-[90vh] max-w-[840px] min-h-[740px] flex items-center justify-evenly flex-col overflow-hidden hover:bg-[#faf5f5] border-b-4" key={item.id} variants={ listVariant }>
         <div className="group bg-white w-[90%] h-[40%] overflow-hidden">
-          <img  className="min-h-[100%] w-[100%] object-cover object-center group-hover:scale-125 transition-all duration-700" src={ item.image } />
+          <img  className="min-h-[100%] w-[100%] object-cover object-center group-hover:scale-125 transition-all duration-700" src={ item.img } />
         </div>
         <div className="w-[90%] h-[15%] flex flex-col items-center">
           <div className="bg-white w-full h-[30%]">
             <span className="text-white font-lato bg-gradient-to-r from-[#5de0e6] to-[#004aad] px-5 py-2 ml-1 rounded-full shadow-lg mt-3">{ item.category }</span>
-            <span className="text-white font-lato bg-gradient-to-r from-[#5de0e6] to-[#004aad] px-5 py-2 ml-1 rounded-full shadow-lg mt-3">{ item.time }</span>
+            <span className="text-white font-lato bg-gradient-to-r from-[#5de0e6] to-[#004aad] px-5 py-2 ml-1 rounded-full shadow-lg mt-3">{ item.published }</span>
           </div>
           <div className="w-[100%] h-[70%] ml-1 flex justify-start">
             <span className="text-black flex items-center justify-start font-alegreya font-[900] text-2xl text-[#4c63d2] overflow-hidden">{ item.title }</span>
@@ -79,9 +82,7 @@ function News() {
         </div>
         <div className="bg-white w-[90%] h-[20%] overflow-hidden">
           <p className="font-lato text-[#807979] leading-loose max-h-[100%] break-words line-clamp-5 indent-8">
-            Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+            { item.body }
           </p>
         </div>
         <div className="bg-white w-[90%] h-[15%] flex items-center justify-evenly">
