@@ -6,9 +6,8 @@ import picprof from '../assets/profpic.png'
 // import newsFeed from '../assets/newsData.jsx'
 import { PostsContext } from '../context/BlogsPosts'
 
-function News() {
-  let blogPosts = useContext(PostsContext)
-  console.log(blogPosts)
+function News() { 
+  let { blogPosts, hostUrl } = useContext(PostsContext)
   const boxVariant = {
     visible : {
       y : 0,
@@ -69,7 +68,7 @@ function News() {
     return(
       <motion.div className="w-full h-[90vh] max-w-[840px] min-h-[740px] flex items-center justify-evenly flex-col overflow-hidden hover:bg-[#faf5f5] border-b-4" key={item.id} variants={ listVariant }>
         <div className="group bg-white w-[90%] h-[40%] overflow-hidden">
-          <img  className="min-h-[100%] w-[100%] object-cover object-center group-hover:scale-125 transition-all duration-700" src={ item.img } />
+          <img  className="min-h-[100%] w-[100%] object-cover object-center group-hover:scale-125 transition-all duration-700" src={ hostUrl + item.img } />
         </div>
         <div className="w-[90%] h-[15%] flex flex-col items-center">
           <div className="bg-white w-full h-[30%]">
