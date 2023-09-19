@@ -11,10 +11,25 @@ from django.db.models import Count
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import TrigramSimilarity
 
+
 # Create your views here.
 @api_view(['GET'])
 def get_posts(request):
     posts = Post.objects.all()
+    serialized_posts = PostSerializers(posts, many=True)
+    return Response(serialized_posts.data)
+
+
+@api_view(['GET'])
+def get_latest_posts(request):
+    posts = Post.objects.order_by('-published')
+    serialized_posts = PostSerializers(posts, many=True)
+    return Response(serialized_posts.data)
+
+
+@api_view(['GET'])
+def get_popular_posts(request):
+    posts = Post.objects.annotate(comments_count=Count('comments')).order_by('-comments_count')
     serialized_posts = PostSerializers(posts, many=True)
     return Response(serialized_posts.data)
 

@@ -72,8 +72,8 @@ function News() {
         </div>
         <div className="w-[90%] h-[15%] flex flex-col items-center">
           <div className="bg-white w-full h-[30%]">
-            <span className="text-white font-lato bg-gradient-to-r from-[#5de0e6] to-[#004aad] px-5 py-2 ml-1 rounded-full shadow-lg mt-3">{ item.category }</span>
-            <span className="text-white font-lato bg-gradient-to-r from-[#5de0e6] to-[#004aad] px-5 py-2 ml-1 rounded-full shadow-lg mt-3">{ item.published }</span>
+            <span className="text-white font-lato bg-gradient-to-r from-[#5de0e6] to-[#004aad] px-5 py-2 ml-1 rounded-full shadow-lg mt-3">{ item.tags }</span>
+            { /* <span className="text-white font-lato bg-gradient-to-r from-[#5de0e6] to-[#004aad] px-5 py-2 ml-1 rounded-full shadow-lg mt-3">{ item.published }</span> */ }
           </div>
           <div className="w-[100%] h-[70%] ml-1 flex justify-start">
             <span className="text-black flex items-center justify-start font-alegreya font-[900] text-2xl text-[#4c63d2] overflow-hidden">{ item.title }</span>
@@ -91,7 +91,7 @@ function News() {
             </div>
             <div className="bg-white w-[70%] h-[60px] font-lato font-bold flex flex-col justify-center pl-2">
               <span className="block flex-none">Athumani Bakari</span>
-              <span className="block text-[#807979] flex-none">5th June 2023</span>
+              <span className="block text-[#807979] flex-none">{ item.published.split("T")[0] + ",     " + item.published.split("T")[1].slice(0, 5) }</span>
             </div>
           </div>
         <div className="bg-white w-[30%] h-[80%] flex items-center justify-center">
