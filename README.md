@@ -88,13 +88,14 @@
       
       ![fliter tags](./screenshots/frontend-latest.png)
      </details>
-    1. Popular posts and Pagination
+  1. Popular post and Pagination
      > The frontend allows user to view popular posts, those are most people have commented on. The frontend also provides pagination for the posts.
      <details>
       <summary>Frontend screenshot</summary>
       
-      ![popular posts](./screenshots/frontend-popular.png)
+      ![fliter tags](./screenshots/frontend-popular.png)
      </details>
+
   1. Post Detail
      > The frontend allows user to view a single post and read full article
      <details>
@@ -154,7 +155,7 @@
             npm run dev
 
         ```
-![post comment](./screenshots/frontend-footer.png)
+![post comment](./screenshots/frontend-mainfooter.png)
 
 
 
