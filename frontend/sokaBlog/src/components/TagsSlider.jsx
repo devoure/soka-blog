@@ -1,19 +1,29 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
 import tagsData from '../assets/tagsData.jsx'
 import usePosition from '../hooks/usePosition.jsx'
+import { PostsContext } from '../context/BlogsPosts'
 
 
 function TagsSlider() {
+  let { setBlogPosts, allPosts } = useContext(PostsContext)
   const tagsSliderRef = useRef()
   const position = usePosition(tagsSliderRef)
+
+  function filterTag(tag){
+    const result = allPosts.filter((item)=>{
+      return item.tags.includes(tag)
+    })
+    setBlogPosts(result)
+
+  }
 
 
   const tagsCard = tagsData.map((tag)=>{
     return(
     <div className="w-[90%] h-[90%] flex justify-evenly items-center" key={tag.id}>
       <div className="w-[100px] h-[70px] flex flex-col items-center justify-evenly">
-        <div className="w-[45px] h-[45px] rounded-full object-center object-cover bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url(${tag.image})` }}>
+        <div className="w-[45px] h-[45px] rounded-full object-center object-cover bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url(${tag.image})` }} onClick={ ()=>{filterTag(tag.tagName)}}>
         </div>
         <span className="font-bold text-xs text-white">{tag.tagName}</span>
       </div>

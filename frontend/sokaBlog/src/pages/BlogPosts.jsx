@@ -11,7 +11,42 @@ function BlogPosts() {
   const navigate = useNavigate()
   const [commentsActive, setCommentsActive] = useState(false)
   const postDetails = useLocation()
-  let { hostUrl } = useContext(PostsContext)
+  let { hostUrl, allComments } = useContext(PostsContext)
+  const [commentInput, setCommentInput] = useState({
+    'body':'',
+    'name':'',
+    'email':'',
+    'post':postDetails.state.id
+  })
+  function handleChange(event) {
+    const { name, value } = event.target
+    setCommentInput(prev => ({
+      ...prev, [name]: value
+    }))
+  }
+  function postComment(){
+    fetch('http://127.0.0.1:8000/api/v1/comments/add', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify(commentInput)})
+    setCommentInput( {
+      'body':'',
+      'name':'',
+      'email':'',
+      'post':postDetails.state.id }) 
+  }
+  const commentsCard = allComments.filter((comment)=>{
+    return comment.post == postDetails.state.id
+  }).map((comment, index)=>{
+    return(
+    <div className="flex flex-col border-b-2 border-slate-500 items-start justify-center p-3 font-lato" key={ comment.id }>
+      <div><span className="text-xl font-bold">{ comment.name }</span> on <span className="italic text-slate-600">{ comment.created.split("T")[0] + ",          " + comment.created.split("T")[1].slice(0, 5) }</span></div>
+      <div className="text-indigo-700 ml-5">{ comment.body }</div>
+      </div>
+    )
+  })
 
   return (
     <motion.div className="origin-center" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:2 }} >
@@ -55,16 +90,17 @@ function BlogPosts() {
         <div className={ commentsActive ? "-translate-y-full transition-all duration-700 tablet:flex w-full h-full" : "transition-all duration-700 tablet:flex w-full h-full" }>
           <div className="relative w-full tablet:w-[50%] h-[50%] tablet:h-full min-h-[490px] tablet:border-r border-slate-300 min-w-[375px] bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] tablet:from-transparent tablet:to-transparent flex flex-col pl-3">
             <span className="font-lato text-white font-bold text-xl py-3">Leave a reply</span>
-          <textarea type="text" className="h-[100px] w-[300px] ml-3 outline-none text-black font-lato placeholder-[#6D6868] bg-white bg-opacity-50 rounded-lg p-3" placeholder="Comment here.."></textarea>
+          <textarea type="text" className="h-[100px] w-[300px] ml-3 outline-none text-black font-lato placeholder-[#6D6868] bg-white bg-opacity-50 rounded-lg p-3" placeholder="Comment here.." name="body" value={commentInput.body} onChange={handleChange}></textarea>
           <label className="font-lato text-white font-bold text-lg py-3">Name</label>
-        <input type="text" className="font-lato w-[300px] h-[40px] ml-3 outline-none pd-5 text-black font-lato placeholder-[#6D6868] bg-white bg-opacity-50 rounded-lg p-3" placeholder="Enter Display Name.."/>
+        <input type="text" className="font-lato w-[300px] h-[40px] ml-3 outline-none pd-5 text-black font-lato placeholder-[#6D6868] bg-white bg-opacity-50 rounded-lg p-3" placeholder="Enter Display Name.." name="name" value={ commentInput.name } onChange={ handleChange }/>
         <label className="font-lato text-white font-bold text-lg py-3">Email</label>
-        <input type="text" className="font-lato w-[300px] h-[40px] ml-3 outline-none pd-5 text-black font-lato placeholder-[#6D6868] bg-white bg-opacity-50 rounded-lg p-3" placeholder="Enter Email.."/>
-        <div className="absolute bg-indigo-300 border-2 border-indigo-700 text-white h-[40px] inset-x-0 bottom-0 flex items-center justify-center font-lato text-xl tracking-widest cursor-pointer after:content-[''] after:absolute after:h-[40px] after:left-0 after:top-0 after:w-[0] hover:after:w-full after:bg-indigo-700 after:text-center after:z-[-1] z-[10] after:origin-left after:duration-500 after:ease-[cubic-bexier(0.5,1.6,0.4,0.7)]">SUBMIT</div>
+        <input type="text" className="font-lato w-[300px] h-[40px] ml-3 outline-none pd-5 text-black font-lato placeholder-[#6D6868] bg-white bg-opacity-50 rounded-lg p-3" placeholder="Enter Email.." name="email" value={ commentInput.email } onChange={ handleChange }/>
+        <div className="absolute bg-indigo-300 border-2 border-indigo-700 text-white h-[40px] inset-x-0 bottom-0 flex items-center justify-center font-lato text-xl tracking-widest cursor-pointer after:content-[''] after:absolute after:h-[40px] after:left-0 after:top-0 after:w-[0] hover:after:w-full after:bg-indigo-700 after:text-center after:z-[-1] z-[10] after:origin-left after:duration-500 after:ease-[cubic-bexier(0.5,1.6,0.4,0.7)]" onClick={ postComment }>SUBMIT</div>
       </div>
           <div className="bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]  tablet:from-transparent tablet:to-transparent tablet:w-[50%] h-full w-full p-3 min-w-[375px]">
-        <div className="font-lato text-xl text-white"><span className="px-3 py-1 rounded-full bg-white bg-opacity-30">6</span> comments</div>
+        <div className="font-lato text-xl text-white"><span className="px-3 py-1 rounded-full bg-white bg-opacity-30">{ commentsCard.length }</span> comments</div>
         <div className="w-[90%] h-[380px] bg-white bg-opacity-30 backdrop-blur-md rounded-lg overflow-auto mt-3">
+          { /*
           <div className="flex flex-col border-b-2 border-slate-500 items-start justify-center p-3 font-lato">
             <div><span className="text-xl font-bold">test</span> on <span className="italic text-slate-600">Oct 08, 2021</span></div>
             <div className="text-indigo-700 ml-5">addddcddcdcd</div>
@@ -88,7 +124,8 @@ function BlogPosts() {
           <div className="flex flex-col border-b-2 border-slate-500 items-start justify-center p-3 font-lato">
             <div><span className="text-xl font-bold">test 5</span> on <span className="italic text-slate-600">Oct 08, 2021</span></div>
             <div className="text-indigo-700 ml-5">addddcddcdcd</div>
-          </div>
+          </div> */}
+          { commentsCard }
 
 
         </div>

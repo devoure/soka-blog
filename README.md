@@ -1,3 +1,5 @@
+![Blog Header](./screenshots/frontend-header.png)
+
 # :soccer: Blog
 > :bulb: **Project** 1/4
 ## 💬 Description
@@ -70,6 +72,48 @@
       
       ![postman get search](./screenshots/backend_search.png)
      </details>
+> Frontend
+  1. Search
+     > The frontend allows to search the blog with words and phrases in the title and body of articles posted
+     <details>
+      <summary>Frontend Screenshot</summary>
+      
+      ![search](./screenshots/frontend-header.png)
+     </details>
+  1. Filter Posts and Latest Posts
+     > The frontend allows user to filter the posts with tags, to show only posts for a certain category. Also the frontend allows to show
+     latest posts on the sidebar
+     <details>
+      <summary>Frontend screenshot</summary>
+      
+      ![fliter tags](./screenshots/frontend-latest.png)
+     </details>
+    1. Popular posts and Pagination
+     > The frontend allows user to view popular posts, those are most people have commented on. The frontend also provides pagination for the posts.
+     <details>
+      <summary>Frontend screenshot</summary>
+      
+      ![popular posts](./screenshots/frontend-popular.png)
+     </details>
+  1. Post Detail
+     > The frontend allows user to view a single post and read full article
+     <details>
+      <summary>Frontend screenshot</summary>
+      
+      ![post detail](./screenshots/frontend-post1.png)
+      ![post detail](./screenshots/frontend-post2.png)
+
+     </details>
+  1. Comments
+     > The frontend allows user to view comments on a post and also comment on a post
+     <details>
+      <summary>Frontend screenshot</summary>
+      
+      ![post comment](./screenshots/frontend-comment.png)
+
+     </details>
+
+
 
 
 ## 🔧 Code Setup
@@ -106,9 +150,11 @@
         ```
    1. Run Frontend Code
         ```bash
-            ##
+            cd frontend/sokaBlog
+            npm run dev
 
         ```
+![post comment](./screenshots/frontend-footer.png)
 
 
 

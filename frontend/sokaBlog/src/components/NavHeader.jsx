@@ -4,6 +4,7 @@ import { AiFillInstagram, AiFillTwitterCircle, AiFillFacebook, AiOutlineSearch }
 
 function NavHeader() {
   const [searchActive, setSearchActive] = useState(false)
+  let searchText = false
   function searchFunc(){
     setSearchActive(prev =>{
       return (!prev)

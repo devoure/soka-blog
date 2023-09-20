@@ -13,12 +13,12 @@ export default [
   },
   {
     image: laliga,
-    tagName: 'LaLIGA',
+    tagName: 'LaLiga',
     id: 2
   },
   {
     image: africa,
-    tagName: 'AFRICA',
+    tagName: 'Africa',
     id: 3
   },
   {
@@ -28,7 +28,7 @@ export default [
   },
   {
     image: gaming,
-    tagName: 'ESPORTS',
+    tagName: 'Gaming',
     id: 5
   },
   {
