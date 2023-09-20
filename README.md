@@ -6,7 +6,7 @@
 > This is a full stack project that is build with django and react
 ![desc](./images/hrms.png)
 ## 📜 More
-> Database
+> ## Database
   1. The app;ication is using Postgres database running on a docker container
      > The database is connected to the app using the port 5432
      <details>
@@ -15,7 +15,7 @@
       ![database](./screenshots/db.png)
      </details>
 
-> Backend
+> ## Backend
   1. API endpoint to get the posts added by author
      > A blog API that gets users posts that is to be promped by the frontend
      <details>
@@ -72,7 +72,7 @@
       
       ![postman get search](./screenshots/backend_search.png)
      </details>
-> Frontend
+> ## Frontend
   1. Search
      > The frontend allows to search the blog with words and phrases in the title and body of articles posted
      <details>
@@ -156,9 +156,3 @@
 
         ```
 ![post comment](./screenshots/frontend-mainfooter.png)
-
-
-
-
-
-
