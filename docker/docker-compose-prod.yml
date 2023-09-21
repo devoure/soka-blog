@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports: 
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=devoure
+      - POSTGRES_USER=devoure
+      - POSTGRES_DB=blog
+
+  backend:
+    build:
+      context: ../backend/.
+    volumes:
+      - static_data:/vol/web
+    environment:
+      - SECRET_KEY=samplesecret123
+      - ALLOWED_HOST=127.0.0.1,localhost
+    depends_on:
+      - postgres
+
+  proxy:
+    build:
+      context: ../proxy
+    volumes:
+      - static_data:/vol/static
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+volumes:
+  static_data
