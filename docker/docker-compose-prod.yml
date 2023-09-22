@@ -22,6 +22,16 @@ services:
     depends_on:
       - postgres
 
+  frontend:
+    build:
+      context:../frontend/.
+    port:
+      - "3000:3000"
+    volumes:
+      - ../frontend/sokaBlog:/frontend
+    stdin_open: true
+    tty: true
+
   proxy:
     build:
       context: ../proxy
