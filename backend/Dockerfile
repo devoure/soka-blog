@@ -14,7 +14,7 @@ COPY ./blog/requirements.txt /requirements.txt
 # --no-cache not cache anything on the OS
 # --virtual add virtual dependencies into a temp file
 # Add dependencies to run uwsgi server
-RUN apk add --update --no-cache --virtual .tmp gcc libc-dev linux-header
+RUN apk add --update --no-cache --virtual .tmp gcc libc-dev linux-headers
 
 # Install requirements
 RUN pip install -r /requirements.txt
