@@ -3,3 +3,4 @@ django_taggit
 psycopg2-binary
 django-cors-headers
 uWSGI>=2.0.18,<2.1
+pillow

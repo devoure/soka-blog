@@ -24,13 +24,15 @@ services:
 
   frontend:
     build:
-      context:../frontend/.
-    port:
+      context: ../frontend/.
+    ports:
       - "3000:3000"
     volumes:
       - ../frontend/sokaBlog:/frontend
     stdin_open: true
     tty: true
+    depends_on:
+      - backend
 
   proxy:
     build:
@@ -38,8 +40,8 @@ services:
     volumes:
       - static_data:/vol/static
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - backend
 volumes:
-  static_data
+  static_data:

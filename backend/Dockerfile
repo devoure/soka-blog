@@ -32,14 +32,14 @@ WORKDIR /backend
 COPY ./scripts /scripts
 
 # Add executable permission to all scripts
-RUN CHMOD +x /scripts/*
+RUN chmod +x /scripts/*
 
 # Create all sub directories needed
 RUN mkdir -p /vol/web/media
 RUN mkdir -p /vol/web/static
 
 # Create new user
-RUN add user
+RUN adduser -D user
 
 # Set owner of the directory to user
 RUN chown -R user:user /vol
