@@ -114,7 +114,27 @@
 
      </details>
 
+> ## Docker
+  1. The frontend, backend, postgres database and nginx proxy are dockerized and runned with a single docker-compose file.
+     > The images are also deployed on docker hub and here is a screenshot of the running containers.
+     <details>
+      <summary>Containers Running</summary>
+      
+      ![containers](./screenshots/docker_running.png)
+     </details>
+  1. Docker hub images
+     > Frontend image
+     ```bash
 
+        docker pull devourey/frontend-sokablog:latest
+
+     ```
+     > Backend image
+     ```bash
+
+        docker pull devourey/backend-sokablog:latest
+
+     ```
 
 
 ## 🔧 Code Setup
@@ -155,4 +175,18 @@
             npm run dev
 
         ```
+   1. Run All Components together with docker
+        ```bash
+            cd docker
+            docker-compose -f docker-compose-dev.yml up
+
+        ```
+        or
+        ```bash
+            cd docker
+            docker-compose -f docker-compose-prod.yml up
+
+        ```
+
+
 ![post comment](./screenshots/frontend-mainfooter.png)
