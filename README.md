@@ -113,6 +113,18 @@
       ![post comment](./screenshots/frontend-comment.png)
 
      </details>
+  1. Mobile Responsive
+     > The frontend allows you to view the blog with your mobile phone, laptop and tablet with a responsive UI
+     <details>
+      <summary>Frontend screenshot</summary>
+      
+      ![mobile](./screenshots/mobile1.png)
+      ![mobile](./screenshots/mobile2.png)
+      ![mobile](./screenshots/mobile3.png)
+      ![mobile](./screenshots/mobile4.png)
+
+     </details>
+
 
 > ## Docker
   1. The frontend, backend, postgres database and nginx proxy are dockerized and runned with a single docker-compose file.
